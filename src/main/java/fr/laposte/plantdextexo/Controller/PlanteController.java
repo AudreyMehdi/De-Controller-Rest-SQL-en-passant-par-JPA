@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.laposte.plantdextexo.Model.Categorie;
-import fr.laposte.plantdextexo.Model.Plante;
 import fr.laposte.plantdextexo.service.ServiceCategorie;
 import fr.laposte.plantdextexo.service.ServicePlante;
 import fr.laposte.plantdextexo.service.dto.PlanteDto;
