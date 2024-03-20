@@ -1,9 +1,11 @@
 package fr.laposte.plantdextexo;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
-import fr.laposte.plantdextexo.Model.Plante;
+
 
 
 
@@ -16,6 +18,11 @@ public class PlantdexExoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlantdexExoApplication.class, args);
 
+	}
+	
+	@Bean
+	ModelMapper getModelMapper() {
+		return new ModelMapper();
 	}
 
 }

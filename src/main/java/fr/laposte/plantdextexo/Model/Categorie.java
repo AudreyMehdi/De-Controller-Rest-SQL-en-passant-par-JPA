@@ -24,5 +24,9 @@ public class Categorie {
 	@NonNull
 	@Column(unique = true)
     private String libelle;
+
+
+
+
 	
 }

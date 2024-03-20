@@ -1,6 +1,5 @@
 package fr.laposte.plantdextexo.Controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,51 +13,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.laposte.plantdextexo.Model.Categorie;
-import fr.laposte.plantdextexo.Model.Plante;
-import fr.laposte.plantdextexo.Repository.CategorieRepository;
-
-
+import fr.laposte.plantdextexo.service.ServiceCategorie;
+import fr.laposte.plantdextexo.service.dto.CategorieDto;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categorie")
 
 public class CategorieController {
 
-	@Autowired
-	private CategorieRepository categorieRepo;
-	
+	@Autowired(required = true)
+	private ServiceCategorie serviceCategorie;
+
 	@GetMapping
-	public List<Categorie> getAll(){
-		return categorieRepo.findAll();
-		}
-	
-	@GetMapping("/{id}")
-	public Categorie getOne(@PathVariable Long id) {
-		return categorieRepo.findById(id).orElseThrow();
+	public List<CategorieDto> getAll() {
+		return serviceCategorie.listerLesCategories();
 	}
-	
+
+	@GetMapping("/{id}")
+	public CategorieDto getOne(@PathVariable Long id) throws Exception {
+		return serviceCategorie.getOneById(id);
+	}
+
 	@PostMapping("/{id}")
-	   public void add(@RequestBody Categorie categorie) {
-		   categorieRepo.save(categorie);
-	   }
-	
-	 @DeleteMapping("/{id}")
-	   public void delete(@PathVariable Long id) {
-		   categorieRepo.deleteById(id);
-	   }
-	 
-	   @PutMapping("/{id}")
-	   public void update(@PathVariable long id, @RequestBody Categorie categorieUpdate) {
-		   
-		   Categorie categorie = categorieRepo.findById(id).orElseThrow();
-		   categorieRepo.delete(categorie);
-		   
-		   categorie.setLibelle(categorieUpdate.getLibelle());
-		  
-		   
-		   categorieRepo.save(categorie);
-		   
-	   }
+	public void add(@RequestBody @Valid CategorieDto categorie) {
+		serviceCategorie.ajouterCategorie(categorie);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		serviceCategorie.supprimerCategorieById(id);
+	}
+
+	@PutMapping("/{id}")
+	public void update(@PathVariable long id, @RequestBody Categorie categorieUpdate) throws Exception {
+		serviceCategorie.modifierCategorieById(id, categorieUpdate);
+
+	}
+
 }
-	    
-	
